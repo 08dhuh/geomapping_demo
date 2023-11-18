@@ -1,14 +1,16 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
+import streamlit_data_processing as sdp
+import streamlit_app_logic as sal
 
-longitude = 146.4511
-latitude = -38.2324
+#App Settings
+st.set_page_config(layout="wide")
 
-df = pd.DataFrame(np.array([[longitude, latitude]]), 
-                  columns=['longitude', 'latitude'])
 
-st.map(df,latitude=latitude,
-       longitude=longitude,
-       size=0,
-       zoom=9)
+#Session Starts
+
+
+if __name__=='__main__':
+       #display_map()
+       sdp.initialise_session_state()
+       sal.display_input_section()
+       sal.display_output_section()
