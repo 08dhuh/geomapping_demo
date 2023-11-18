@@ -5,7 +5,7 @@ def num_formatter(num: float or np.ndarray, decimal=2):
     """
     This function formats a given float 'num' to a specific number of decimal places.
 
-    Args:
+    Parameters:
     - num (float): The float number to format
     - decimal (int): Number of decimal places to round to (default: 2)
 
@@ -21,3 +21,5 @@ def num_formatter(num: float or np.ndarray, decimal=2):
             raise TypeError
     except TypeError as e:
         return st.error(e)
+    
+
