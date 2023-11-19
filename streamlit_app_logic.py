@@ -12,7 +12,15 @@ def display_input_section():
         st.session_state['is_production'] = is_production
         depth_data = st.session_state['depth_data']
         updated_depth_data = st.data_editor(
-            depth_data, on_change=sdp.execute_calculation_with_session_states)
+            depth_data, 
+            on_change=sdp.execute_calculation_with_session_states,
+            column_config={ 'depth_data':st.column_config.NumberColumn(
+                'depth to base(m)',
+                min_value=0                
+                )
+            }
+
+            )
         if updated_depth_data != depth_data:
             st.session_state['depth_data'] = updated_depth_data
             sdp.execute_calculation_with_session_states()
