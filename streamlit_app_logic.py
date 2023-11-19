@@ -9,7 +9,9 @@ def display_input_section():
     with st.sidebar:
         st.subheader('Inputs')
         st.button('reset inputs', on_click=sdp.reset)
-        is_production = st.checkbox('Production bore?')
+        is_production = st.checkbox('Injection bore?',
+                                    value=True
+                                    )
         st.session_state['is_production'] = is_production
         depth_data = st.session_state['depth_data']
         updated_depth_data = st.data_editor(
