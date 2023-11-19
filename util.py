@@ -23,3 +23,13 @@ def num_formatter(num: float or np.ndarray, decimal=2):
         return st.error(e)
     
 
+def column_labeler(column:list, unit='m') -> dict:
+    """
+    Takes a list of column names and the column unit
+    to relabel the column as an argument of 
+    streamlit.colum_config.NumberColumn objects.
+    returns
+        dict: {st.column_config.NumberColumn }
+    """
+    return {key: st.column_config.NumberColumn( f'{key}({unit})') for key in column}
+    #st.column_config.n

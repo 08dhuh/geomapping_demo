@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import streamlit_data_processing as sdp
+import util
 
 
 def display_input_section():
@@ -14,7 +15,7 @@ def display_input_section():
         updated_depth_data = st.data_editor(
             depth_data, 
             on_change=sdp.execute_calculation_with_session_states,
-            column_config={ 'depth_data':st.column_config.NumberColumn(
+            column_config={ 'depth_to_base':st.column_config.NumberColumn(
                 'depth to base(m)',
                 min_value=0                
                 )
@@ -48,15 +49,27 @@ def display_output_section():
     # Access the dictionary without the popped items
     with col1:
         st.dataframe(st.session_state['result'],
+                     column_config={
+                         'value': st.column_config.NumberColumn(
+                             'value (m)'
+                         )
+                     }
                      )
         st.dataframe(pd.DataFrame([error1, error2],
-                                  columns=['min', 'max'],
+                                  columns=['min(m)', 'max(m)'],
                                   index=['production_screen_length_error',
-                                         'injection_screen_length_error']))
+                                         'injection_screen_length_error'],)
+                                         )
     with col2:
-        st.write(casing)
-    st.dataframe(interval, use_container_width=True,
-                 hide_index=True)
+        st.dataframe(casing, 
+                     column_config=util.column_labeler(casing.columns))
+    st.dataframe(interval, 
+                 use_container_width=True,
+                 hide_index=True,
+                 column_config=dict(util.column_labeler(
+                     [c for c in interval.columns if c!='total_casing']),
+                         **{'total_casing':st.column_config.NumberColumn('total_casing(m²)')}))
+    #resets the session state
     st.session_state['result'] = st.session_state['wbd'].export_results_to_dict()
 
 
