@@ -28,7 +28,9 @@ def display_input_section():
 
         initial_values = st.session_state['initial_values']
         updated_initial_values = st.data_editor(
-            initial_values, on_change=sdp.execute_calculation_with_session_states)
+            initial_values, 
+            on_change=sdp.execute_calculation_with_session_states
+            ,)
         if updated_initial_values != initial_values:
             st.session_state['initial_values'] = updated_initial_values
             sdp.execute_calculation_with_session_states()
@@ -61,8 +63,10 @@ def display_output_section():
                                          'injection_screen_length_error'],)
                                          )
     with col2:
+        #casing output
         st.dataframe(casing, 
                      column_config=util.column_labeler(casing.columns))
+    #
     st.dataframe(interval, 
                  use_container_width=True,
                  hide_index=True,
